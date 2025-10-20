@@ -1,35 +1,126 @@
 @import './base.css';
 
+html, body, #app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+  background-color: #f5f7fb;
+  color: #1d1d1d;
+}
+
 #app {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  font-weight: normal;
+  font-weight: 400;
 }
 
-a,
-.green {
+a {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+  color: #0b7a5b;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+a:hover {
+  color: #089067;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+h1, h2, h3, h4, h5 {
+  font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  margin-bottom: 0.6em;
+}
+p {
+  color: #444;
+  line-height: 1.6;
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
 
+.page-section {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px 28px;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+}
+
+.hero {
+  background: linear-gradient(135deg, #eaf7f3 0%, #f7fafc 100%);
+  border-radius: 18px;
+  padding: 32px 40px;
+  margin-bottom: 32px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+}
+.hero h1 {
+  font-size: 2rem;
+  margin: 0;
+  color: #0b7a5b;
+}
+.hero p {
+  color: #52607a;
+  margin-top: 8px;
+  font-size: 1rem;
+}
+
+.v-btn {
+  border-radius: 12px !important;
+  text-transform: none;
+  letter-spacing: 0.3px;
+  font-weight: 500;
+}
+
+.v-card {
+  border-radius: 18px !important;
+  box-shadow: 0 6px 22px rgba(23,32,90,0.06) !important;
+}
+
+.v-data-table thead th {
+  font-weight: 600 !important;
+  background-color: #f1f3f7 !important;
+  color: #273048 !important;
+  text-transform: uppercase;
+}
+.v-data-table tbody tr:hover {
+  background-color: #f6faf8 !important;
+  transition: 0.2s;
+}
+
+.v-snackbar {
+  border-radius: 12px !important;
+  font-weight: 500;
+}
+
+.v-footer {
+  background-color: transparent !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 8px 0 12px;
+  font-size: 0.85rem;
+  color: #868e96;
+  text-align: center;
+  box-shadow: none !important;
+  margin-top: 32px;
+}
+
+.v-footer .page {
+  padding: 0;
+}
+
+@media (max-width: 960px) {
   #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+    padding: 1rem;
+  }
+  .hero {
+    padding: 24px;
+  }
+  .page-section {
+    padding: 18px;
   }
 }

@@ -3,14 +3,14 @@ import Dashboard from '@/components/Dashboard.vue'
 import MovieList from '@/components/MovieList.vue'
 import ScreeningList from '@/components/ScreeningList.vue'
 import TicketDesk from '@/components/TicketDesk.vue'
-import Recommandation from '@/components/Recommandation.vue'
+import Recommendation from '@/components/Recommendation.vue'
 
 const routes = [
-    { path: '/', component: Dashboard },
-    { path: '/movies', component: MovieList },
-    { path: '/screenings', component: ScreeningList },
-    { path: '/tickets', component: TicketDesk },
-    { path: '/recommendations', component: Recommandation},
+    { path: '/', name: 'dashboard', component: Dashboard },
+    { path: '/movies', name: 'movies', component: MovieList },
+    { path: '/screenings', name: 'screenings', component: ScreeningList },
+    { path: '/tickets', name: 'tickets', component: TicketDesk },
+    { path: '/recommendations', name: 'recommendations', component: Recommendation },
 ]
 
 export default createRouter({
