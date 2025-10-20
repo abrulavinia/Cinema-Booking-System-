@@ -20,7 +20,7 @@ public interface ScreeningRepo extends JpaRepository<Screening, Long> {
                            @Param("fromTime") LocalDateTime from,
                            @Param("toTime") LocalDateTime to);
 
-    // custom #1: cele mai populare proiecții
+
     @Query("select s from Screening s order by s.seats_sold desc, s.time desc")
     Page<Screening> mostPopular(Pageable pageable);
 }

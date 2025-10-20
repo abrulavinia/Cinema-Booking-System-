@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TicketRepo extends JpaRepository<Ticket, Long> {
 
-    // custom #2: bilete vândute pe film
+
     @Query("""
     select t.screening.movie.id as movieId, count(t) as sold
     from Ticket t
