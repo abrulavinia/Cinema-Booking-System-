@@ -27,14 +27,21 @@ async function load() {
 async function addMovie() {
   if (!formValid.value) return
   try {
-    await api.post('/movies', form.value)
-    notify('Movie added')
+    const payload = {
+      title: form.value.title,
+      genre: form.value.genre,
+      duration: Number(form.value.duration)
+    }
+    await api.post('/movies', payload)
+    notify('Movie added successfully')
     form.value = { title: '', genre: '', duration: 90 }
     await load()
   } catch (e) {
-    notify(e?.response?.data?.error || 'Failed to add movie', 'error')
+    console.error(e)
+    notify(e?.response?.data?.message || 'Failed to add movie', 'error')
   }
 }
+
 
 async function remove(id) {
   try {

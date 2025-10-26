@@ -1,17 +1,35 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { api } from '@/services/api'
+import Recommendation from '@/components/Recommendation.vue'
+
+const props = defineProps({
+  prefillEmail: { type: String, default: '' }
+})
+
 const email = ref('')
 const recs = ref([])
+const lastTicket = ref(null)
 const loading = ref(false)
+const snackbar = ref({ show:false, text:'', color:'success' })
 const fmt = d => new Date(d).toLocaleString()
 
+watch(() => props.prefillEmail, v => {
+  if (v && !email.value) email.value = v
+}, { immediate: true })
+
 async function fetchRecs() {
-  if (!email.value) return
+  const e = (email.value || '').trim().toLowerCase()
+  if (!e) return
   loading.value = true
   try {
-    const { data } = await api.get('/recommendations', { params: { email: email.value } })
+    const { data } = await api.get('/recommendations', { params: { email: e } })
     recs.value = data
+    if (!recs.value?.length) {
+      snackbar.value = { show:true, text:'No recommendations for this email yet.', color:'orange' }
+    }
+  } catch (err) {
+    snackbar.value = { show:true, text: err?.response?.data?.message || 'Failed to load recommendations', color:'red' }
   } finally {
     loading.value = false
   }
@@ -40,6 +58,10 @@ async function fetchRecs() {
         />
       </v-list>
       <div v-else class="text-medium-emphasis">No data yet.</div>
+
+      <v-snackbar v-model="snackbar.show" :color="snackbar.color" timeout="2200">
+        {{ snackbar.text }}
+      </v-snackbar>
     </v-card-text>
   </v-card>
 </template>

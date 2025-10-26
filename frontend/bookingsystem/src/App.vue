@@ -15,7 +15,6 @@ const nav = [
 
 <template>
   <v-app>
-    <!-- Top bar -->
     <v-app-bar flat class="app-bar">
       <v-app-bar-nav-icon class="hide-desktop" @click="drawer = !drawer" />
       <v-toolbar-title class="font-weight-bold">

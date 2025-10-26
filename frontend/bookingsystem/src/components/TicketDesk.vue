@@ -18,7 +18,8 @@ async function buy() {
     lastTicket.value = data
     notify('Ticket purchased')
   } catch (e) {
-    notify(e?.response?.data?.error || 'Purchase failed', 'error')
+    notify(e?.response?.data?.message || e?.response?.data?.error || 'Purchase failed', 'error')
+
   } finally {
     busy.value = false
   }
@@ -47,11 +48,15 @@ function notify(text, type='success') {
           </v-btn>
         </v-col>
       </v-row>
-
       <div v-if="lastTicket" class="mt-4">
         <strong>Purchased:</strong>
-        #{{ lastTicket.id }} • {{ lastTicket.screening.movie.title }} • {{ fmt(lastTicket.purchasedAt) }}
+        #{{ lastTicket.id }}
+        <template v-if="lastTicket.screening?.movie">
+          • {{ lastTicket.screening.movie.title }}
+        </template>
+        • {{ fmt(lastTicket.purchasedAt) }}
       </div>
+
     </v-card-text>
   </v-card>
 
