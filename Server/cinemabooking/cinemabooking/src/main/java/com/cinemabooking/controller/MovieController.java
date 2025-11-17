@@ -1,7 +1,4 @@
 package com.cinemabooking.controller;
-
-import com.cinemabooking.db.Movie;
-import com.cinemabooking.repo.MovieRepo;
 import com.cinemabooking.services.MovieService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -11,36 +8,36 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/movies")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:8080","http://localhost:5174","http://localhost:5173"})
+@CrossOrigin(origins = {"http://localhost:8080","http://localhost:5173"})
 public class MovieController {
-    private final MovieRepo repo;
+    private final MovieService service;
 
     @PostMapping
     public com.cinemabooking.db.Movie createMovie(@RequestBody com.cinemabooking.db.Movie m){
-        return MovieService.createMovie(m);
+        return service.createMovie(m);
     }
     @GetMapping
     public List<com.cinemabooking.db.Movie> findAll(){
-        return MovieService.findAllMovies();
+        return service.findAllMovies();
     }
 
     @GetMapping("/{id}")
     public com.cinemabooking.db.Movie findById(@PathVariable("id") Long id) {
-        return MovieService.findMovieById(id);
+        return service.findMovieById(id);
     }
 
     @PutMapping("/{id}")
-    public Movie updateMovie(@PathVariable Long id, @Valid @RequestBody Movie m) {
-        return MovieService.updateMovie(id, m);
+    public com.cinemabooking.db.Movie updateMovie(@PathVariable Long id, @Valid @RequestBody com.cinemabooking.db.Movie m) {
+        return service.updateMovie(id, m);
     }
 
     @DeleteMapping("/{id}")
     public void deleteMovie(@PathVariable Long id) {
-        MovieService.deleteMovie(id);
+        service.deleteMovie(id);
     }
 
     @GetMapping("/by-genre/{g}")
-    public List<Movie> findByGenre(@PathVariable String g) {
-        return MovieService.findByGenre(g);
+    public List<com.cinemabooking.db.Movie> findByGenre(@PathVariable String g) {
+        return service.findByGenre(g);
     }
 }

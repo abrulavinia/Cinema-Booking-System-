@@ -1,0 +1,121 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\abrud\\OneDrive\\Desktop\\Anul 4\\SCD\\Cinema-Booking-System-\\CinemaBooking\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7656CC2E-5036-4BF8-A9E8-030686347AEC}|CinemaBooking.csproj|c:\\users\\abrud\\onedrive\\desktop\\anul 4\\scd\\cinema-booking-system-\\cinemabooking\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7656CC2E-5036-4BF8-A9E8-030686347AEC}|CinemaBooking.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7656CC2E-5036-4BF8-A9E8-030686347AEC}|CinemaBooking.csproj|c:\\users\\abrud\\onedrive\\desktop\\anul 4\\scd\\cinema-booking-system-\\cinemabooking\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7656CC2E-5036-4BF8-A9E8-030686347AEC}|CinemaBooking.csproj|solutionrelative:form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7656CC2E-5036-4BF8-A9E8-030686347AEC}|CinemaBooking.csproj|c:\\users\\abrud\\onedrive\\desktop\\anul 4\\scd\\cinema-booking-system-\\cinemabooking\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{7656CC2E-5036-4BF8-A9E8-030686347AEC}|CinemaBooking.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7656CC2E-5036-4BF8-A9E8-030686347AEC}|CinemaBooking.csproj|c:\\users\\abrud\\onedrive\\desktop\\anul 4\\scd\\cinema-booking-system-\\cinemabooking\\packageservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7656CC2E-5036-4BF8-A9E8-030686347AEC}|CinemaBooking.csproj|solutionrelative:packageservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7656CC2E-5036-4BF8-A9E8-030686347AEC}|CinemaBooking.csproj|c:\\users\\abrud\\onedrive\\desktop\\anul 4\\scd\\cinema-booking-system-\\cinemabooking\\cinemabooking.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{7656CC2E-5036-4BF8-A9E8-030686347AEC}|CinemaBooking.csproj|solutionrelative:cinemabooking.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\abrud\\OneDrive\\Desktop\\Anul 4\\SCD\\Cinema-Booking-System-\\CinemaBooking\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\abrud\\OneDrive\\Desktop\\Anul 4\\SCD\\Cinema-Booking-System-\\CinemaBooking\\Form1.cs [Design]",
+              "RelativeToolTip": "Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T16:52:58.399Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\abrud\\OneDrive\\Desktop\\Anul 4\\SCD\\Cinema-Booking-System-\\CinemaBooking\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "Form1.Designer.cs",
+              "ToolTip": "C:\\Users\\abrud\\OneDrive\\Desktop\\Anul 4\\SCD\\Cinema-Booking-System-\\CinemaBooking\\Form1.Designer.cs",
+              "RelativeToolTip": "Form1.Designer.cs",
+              "ViewState": "AgIAAKEAAAAAAAAAAAAUwK4AAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T19:26:00.882Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PackageServices.cs",
+              "DocumentMoniker": "C:\\Users\\abrud\\OneDrive\\Desktop\\Anul 4\\SCD\\Cinema-Booking-System-\\CinemaBooking\\PackageServices.cs",
+              "RelativeDocumentMoniker": "PackageServices.cs",
+              "ToolTip": "C:\\Users\\abrud\\OneDrive\\Desktop\\Anul 4\\SCD\\Cinema-Booking-System-\\CinemaBooking\\PackageServices.cs",
+              "RelativeToolTip": "PackageServices.cs",
+              "ViewState": "AgIAAOAAAAAAAAAAAAAowOgAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T14:27:43.883Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\abrud\\OneDrive\\Desktop\\Anul 4\\SCD\\Cinema-Booking-System-\\CinemaBooking\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\abrud\\OneDrive\\Desktop\\Anul 4\\SCD\\Cinema-Booking-System-\\CinemaBooking\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T14:45:32.082Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CinemaBooking.csproj",
+              "DocumentMoniker": "C:\\Users\\abrud\\OneDrive\\Desktop\\Anul 4\\SCD\\Cinema-Booking-System-\\CinemaBooking\\CinemaBooking.csproj",
+              "RelativeDocumentMoniker": "CinemaBooking.csproj",
+              "ToolTip": "C:\\Users\\abrud\\OneDrive\\Desktop\\Anul 4\\SCD\\Cinema-Booking-System-\\CinemaBooking\\CinemaBooking.csproj",
+              "RelativeToolTip": "CinemaBooking.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-04T19:03:43.511Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

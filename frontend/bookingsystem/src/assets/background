@@ -1,0 +1,19 @@
+<template>
+  <div class="welcome-card">
+    <img src="@/assets/Cinema.jpg" alt="Cinema Logo" class="logo" />
+    <div>
+      <h2>Welcome to Cinema Booking!</h2>
+      <p>Manage movies, screenings, and tickets.</p>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.logo {
+  width: 80px;
+  height: auto;
+  margin-right: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+</style>

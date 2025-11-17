@@ -2,41 +2,43 @@ package com.cinemabooking.controller;
 
 import com.cinemabooking.db.Screening;
 import com.cinemabooking.services.ScreeningService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/screenings")
-@CrossOrigin(origins = {"http://localhost:8080","http://localhost:5173","http://localhost:5174"})
+@CrossOrigin(origins = {"http://localhost:8080","http://localhost:5173"})
 public class ScreeningController {
 
+    private final ScreeningService service;
     @PostMapping
     public com.cinemabooking.db.Screening create(@RequestBody com.cinemabooking.db.Screening s) {
-        return ScreeningService.create(s);
+        return service.create(s);
     }
 
     @GetMapping
     public List<com.cinemabooking.db.Screening> all() {
-        return ScreeningService.findAll();
+        return service.findAll();
     }
 
     @GetMapping("/{id}")
     public com.cinemabooking.db.Screening one(@PathVariable Long id) {
-        return ScreeningService.findById(id);
+        return service.findById(id);
     }
 
     @PutMapping("/{id}")
     public com.cinemabooking.db.Screening update(@PathVariable Long id, @RequestBody com.cinemabooking.db.Screening s) {
-        return ScreeningService.update(id, s);
+        return service.update(id, s);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        ScreeningService.delete(id);
+        service.delete(id);
     }
 
     @GetMapping("/search")
@@ -46,10 +48,10 @@ public class ScreeningController {
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime from,
             @RequestParam(required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime to) {
-        return ScreeningService.search(movieId, from, to);
+        return service.search(movieId, from, to);
     }
     @GetMapping("/popular")
     public List<Screening> popular(@RequestParam(defaultValue = "5") int top) {
-        return ScreeningService.mostPopular(0, top).getContent();
+        return service.getMostPopularScreening(top);
     }
 }

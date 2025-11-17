@@ -8,11 +8,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/recommendations")
+@CrossOrigin(origins = {"http://localhost:8080","http://localhost:5173"})
 @RequiredArgsConstructor
 public class RecommendationController {
 
+    private final RecommendationService service;
     @GetMapping
     public List<Screening> recommend(@RequestParam String email) {
-        return RecommendationService.recommend(email);
+        return service.recommend(email);
     }
 }

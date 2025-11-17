@@ -30,5 +30,6 @@ public class Screening {
     @Min(0)
     private int seats_sold=0;
 
+    @Enumerated(EnumType.STRING)
     private ScreeningStatus status;
 }

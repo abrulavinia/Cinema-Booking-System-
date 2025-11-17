@@ -12,18 +12,26 @@ import java.util.List;
 
 public interface ScreeningRepo extends JpaRepository<Screening, Long> {
     @Query("""
-    select s from Screening s
-    where (:movieId is null or s.movie.id = :movieId)
-      and (:fromTime is null or s.time >= :fromTime)
-      and (:toTime   is null or s.time <= :toTime)
-    order by s.time
+        SELECT s FROM Screening s
+        WHERE (:movieId IS NULL OR s.movie.id = :movieId)
+        AND (:fromTime IS NULL OR s.time >= :fromTime)
+        AND (:toTime IS NULL OR s.time <= :toTime)
+        ORDER BY s.time
   """)
     List<Screening> search(@Param("movieId") Long movieId,
                            @Param("fromTime") LocalDateTime from,
                            @Param("toTime") LocalDateTime to);
 
 
-    @Query("select s from Screening s order by s.seats_sold desc, s.time desc")
-    Page<Screening> mostPopular(Pageable pageable);
-
+    @Query("""
+       select s
+       from Screening s
+       left join Ticket t
+         on t.screening = s
+        and (t.status is null or t.status <> com.cinemabooking.db.TicketStatus.CANCELLED)
+       where s.time >= CURRENT_TIMESTAMP
+       group by s
+       order by count(t.id) desc, s.time asc
+       """)
+    List<Screening> getMostPopularScreening(Pageable pageable);
 }

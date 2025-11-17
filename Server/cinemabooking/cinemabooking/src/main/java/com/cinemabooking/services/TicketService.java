@@ -2,6 +2,7 @@ package com.cinemabooking.services;
 
 import com.cinemabooking.db.TicketStatus;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -10,18 +11,13 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TicketService {
 
-    private static com.cinemabooking.repo.TicketRepo tickets;
-    private static com.cinemabooking.repo.ScreeningRepo screenings;
+    private final com.cinemabooking.repo.TicketRepo tickets;
+    private final com.cinemabooking.repo.ScreeningRepo screenings;
 
-    @Autowired
-    public TicketService(com.cinemabooking.repo.TicketRepo ticketRepo, com.cinemabooking.repo.ScreeningRepo screeningRepo) {
-        tickets = ticketRepo;
-        screenings = screeningRepo;
-    }
-
-    public static List<com.cinemabooking.db.Ticket> all() {
+    public List<com.cinemabooking.db.Ticket> all() {
         return tickets.findAll();
     }
 
@@ -48,8 +44,8 @@ public class TicketService {
     }
 
 
-
-    public static void cancel(Long ticketId) {
+    @Transactional
+    public void cancel(Long ticketId) {
         com.cinemabooking.db.Ticket t = tickets.findById(ticketId).orElseThrow();
         com.cinemabooking.db.Screening s = t.getScreening();
         s.setSeats_sold(Math.max(0, s.getSeats_sold() - 1));
@@ -57,7 +53,7 @@ public class TicketService {
         tickets.delete(t);
     }
 
-    public static List<com.cinemabooking.TicketSoldPerMovie> soldPerMovie() {
-        return tickets.ticketSoldPerMovie();
+    public List<com.cinemabooking.TicketSoldPerMovie> getTicketsSoldPerMovie() {
+        return tickets.getTicketsSoldPerMovie();
     }
 }

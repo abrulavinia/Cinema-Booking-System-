@@ -18,7 +18,7 @@ const nav = [
     <v-app-bar flat class="app-bar">
       <v-app-bar-nav-icon class="hide-desktop" @click="drawer = !drawer" />
       <v-toolbar-title class="font-weight-bold">
-        🎬 Cinema <span class="brand-accent">Booking</span>
+         Cinema <span class="brand-accent">Booking</span>
       </v-toolbar-title>
       <v-spacer/>
       <div class="hide-mobile">
@@ -57,8 +57,5 @@ const nav = [
       </v-container>
     </v-main>
 
-    <v-footer class="app-footer" app>
-      <div class="page small text-medium-emphasis">© {{ new Date().getFullYear() }} Cinema Booking</div>
-    </v-footer>
   </v-app>
 </template>

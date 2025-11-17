@@ -18,12 +18,12 @@ html, body, #app {
 
 a {
   text-decoration: none;
-  color: #0b7a5b;
+  color: #c67d7d;
   font-weight: 500;
   transition: all 0.25s ease;
 }
 a:hover {
-  color: #089067;
+  color: #bb8c8c;
 }
 
 h1, h2, h3, h4, h5 {
@@ -52,7 +52,7 @@ p {
 }
 
 .hero {
-  background: linear-gradient(135deg, #eaf7f3 0%, #f7fafc 100%);
+  background: linear-gradient(135deg, #bb8c8c 0%, #f7fafc 100%);
   border-radius: 18px;
   padding: 32px 40px;
   margin-bottom: 32px;
@@ -62,10 +62,10 @@ p {
 .hero h1 {
   font-size: 2rem;
   margin: 0;
-  color: #0b7a5b;
+  color: rgba(0, 0, 0, 0.59);
 }
 .hero p {
-  color: #52607a;
+  color: #131313;
   margin-top: 8px;
   font-size: 1rem;
 }

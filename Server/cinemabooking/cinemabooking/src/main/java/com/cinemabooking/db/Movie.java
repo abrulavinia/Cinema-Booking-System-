@@ -26,5 +26,6 @@ public class Movie {
     @Min(1)
     private int duration;
 
+    @Enumerated(EnumType.STRING)
     private MovieStatus status;
 }

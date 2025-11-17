@@ -3,7 +3,7 @@ package com.cinemabooking.services;
 import com.cinemabooking.db.Screening;
 import com.cinemabooking.repo.ScreeningRepo;
 import com.cinemabooking.repo.TicketRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,18 +13,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class RecommendationService {
 
-    private static TicketRepo tickets;
-    private static ScreeningRepo screenings;
+    private final TicketRepo tickets;
+    private final ScreeningRepo screenings;
 
-    @Autowired
-    public RecommendationService(com.cinemabooking.repo.TicketRepo tRepo, com.cinemabooking.repo.ScreeningRepo sRepo) {
-        tickets = tRepo;
-        screenings = sRepo;
-    }
-
-    public static List<com.cinemabooking.db.Screening> recommend(String email) {
+    public List<com.cinemabooking.db.Screening> recommend(String email) {
 
         var favGenres = tickets.findAll().stream()
                 .filter(t -> t.getCustomerEmail().equalsIgnoreCase(email))

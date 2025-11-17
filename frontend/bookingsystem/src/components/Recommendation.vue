@@ -1,7 +1,6 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { api } from '@/services/api'
-import Recommendation from '@/components/Recommendation.vue'
 
 const props = defineProps({
   prefillEmail: { type: String, default: '' }
@@ -9,7 +8,6 @@ const props = defineProps({
 
 const email = ref('')
 const recs = ref([])
-const lastTicket = ref(null)
 const loading = ref(false)
 const snackbar = ref({ show:false, text:'', color:'success' })
 const fmt = d => new Date(d).toLocaleString()
@@ -18,18 +16,18 @@ watch(() => props.prefillEmail, v => {
   if (v && !email.value) email.value = v
 }, { immediate: true })
 
-async function fetchRecs() {
+function notify(text, type='success'){ snackbar.value = { show:true, text, color: type==='error' ? 'red' : 'green' } }
+
+async function fetchRecs(){
   const e = (email.value || '').trim().toLowerCase()
-  if (!e) return
+  if (!e) return notify('Please enter an email','error')
   loading.value = true
-  try {
+  try{
     const { data } = await api.get('/recommendations', { params: { email: e } })
     recs.value = data
-    if (!recs.value?.length) {
-      snackbar.value = { show:true, text:'No recommendations for this email yet.', color:'orange' }
-    }
-  } catch (err) {
-    snackbar.value = { show:true, text: err?.response?.data?.message || 'Failed to load recommendations', color:'red' }
+    if (!recs.value?.length) notify('No recommendations for this email yet.', 'orange')
+  } catch (err){
+    notify(err?.response?.data?.message || 'Failed to load recommendations', 'error')
   } finally {
     loading.value = false
   }
@@ -42,7 +40,7 @@ async function fetchRecs() {
     <v-card-text>
       <v-row dense>
         <v-col cols="12" md="6">
-          <v-text-field v-model="email" label="Customer email" variant="outlined" />
+          <v-text-field v-model="email" label="Customer email" variant="outlined"/>
         </v-col>
         <v-col cols="12" md="3" class="d-flex align-end">
           <v-btn :loading="loading" @click="fetchRecs">Load</v-btn>
