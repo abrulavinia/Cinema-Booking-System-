@@ -1,12 +1,14 @@
 package com.cinemabooking.services;
 
 import com.cinemabooking.db.Screening;
+import com.cinemabooking.db.ScreeningStatus;
 import com.cinemabooking.repo.ScreeningRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,6 +19,9 @@ public class ScreeningService {
     private final ScreeningRepo screeningRepo;
 
     public com.cinemabooking.db.Screening create(com.cinemabooking.db.Screening s) {
+        if(s.getStatus()==null){
+            s.setStatus(ScreeningStatus.SCHEDULED);
+        }
         return screeningRepo.save(s);
     }
 
@@ -45,7 +50,16 @@ public class ScreeningService {
     public List<com.cinemabooking.db.Screening> search(Long movieId, LocalDateTime from, LocalDateTime to) {
         return screeningRepo.search(movieId, from, to);
     }
+    public List<Screening> getToday() {
+        LocalDate today = LocalDate.now();
+        LocalDateTime start = today.atStartOfDay();
+        LocalDateTime end = today.plusDays(1).atStartOfDay();
 
+        return screeningRepo.findToday(
+                start,
+                end
+        );
+    }
     public List<com.cinemabooking.db.Screening> getMostPopularScreening(int limit) {
         return screeningRepo.getMostPopularScreening(PageRequest.of(0,limit));
     }

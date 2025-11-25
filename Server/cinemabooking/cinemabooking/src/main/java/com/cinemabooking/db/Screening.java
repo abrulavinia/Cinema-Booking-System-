@@ -31,5 +31,13 @@ public class Screening {
     private int seats_sold=0;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable=false)
     private ScreeningStatus status;
+
+    @PrePersist
+    void prePersist(){
+        if(status==null){
+            status=ScreeningStatus.SCHEDULED;
+        }
+    }
 }

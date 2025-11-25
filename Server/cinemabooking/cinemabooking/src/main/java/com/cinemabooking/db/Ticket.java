@@ -30,5 +30,13 @@ public class Ticket {
     private LocalDateTime purchasedAt;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable=false)
     private TicketStatus status;
+
+    @PrePersist
+    void prePersist() {
+        if(status==null){
+            status=TicketStatus.RESERVED;
+        }
+    }
 }

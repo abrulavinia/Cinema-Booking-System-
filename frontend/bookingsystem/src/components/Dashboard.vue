@@ -97,15 +97,24 @@ const snackbar = ref({ show:false, text:'', color:'success' })
 const notify = (t, type='success') => (snackbar.value = { show:true, text:t, color: type==='error' ? 'red' : 'green' })
 function go(path) { router.push(path) }
 
-async function loadMovies() {
+async function loadNowPlaying() {
   loading.value.movies = true
   try {
-    const { data } = await api.get('/movies')
-    movies.value = Array.isArray(data) ? data : []
-    nowPlaying.value = (movies.value.filter(m => (m.status || '').toUpperCase() === 'ACTIVE')).slice(0, 8)
-    if (!nowPlaying.value.length) nowPlaying.value = movies.value.slice(0, 8)
+    const {data} = await api.get('/screenings/today')
+    const seen = new Set()
+    const moviesToday = []
+
+    for (const s of data) {
+      if (!seen.has(s.movie.id)) {
+        seen.add(s.movie.id)
+        moviesToday.push(s.movie)
+      }
+    }
+    nowPlaying.value = moviesToday.slice(0, 8)
+
   } catch {
-    notify('Failed to load movies','error')
+    notify('Failed to load now playing','error')
+    nowPlaying.value = []
   } finally {
     loading.value.movies = false
   }
@@ -120,8 +129,10 @@ async function loadPopular() {
     loading.value.popular = false
   }
 }
-
-onMounted(() => { loadMovies(); loadPopular() })
+onMounted(() => {
+  loadNowPlaying()
+  loadPopular()
+})
 </script>
 
 <style scoped>

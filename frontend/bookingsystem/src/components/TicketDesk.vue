@@ -34,9 +34,6 @@
                   <v-btn :loading="busy.buy" @click="buy">
                     <v-icon start>mdi-cart</v-icon> Buy
                   </v-btn>
-                  <v-btn variant="tonal" @click="prefillFromQuery" v-if="route.query.screeningId">
-                    Use query ({{ route.query.screeningId }})
-                  </v-btn>
                 </v-col>
               </v-row>
 

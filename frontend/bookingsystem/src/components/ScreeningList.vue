@@ -52,7 +52,7 @@
 
     <section class="container">
       <v-data-table
-          :items="rows"
+          :items="sortedRows"
           :headers="headers"
           item-key="id"
           :loading="loading.table"
@@ -78,8 +78,14 @@
         </template>
 
         <template #item.actions="{ item }">
-          <v-btn size="small" color="primary" variant="tonal" @click="buy(item)">
-             Buy
+          <v-btn
+              size="small"
+              color="primary"
+              variant="tonal"
+              :disabled="!canBuy(item)"
+              @click="canBuy(item) && buy(item)"
+          >
+            {{ canBuy(item) ? 'Buy' : 'Ended' }}
           </v-btn>
         </template>
       </v-data-table>
@@ -123,7 +129,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { api } from '@/services/api'
 
@@ -133,9 +139,22 @@ const router = useRouter()
 const loading = ref({ table: false, popular: false })
 const rows = ref([])
 const popular = ref([])
+const sortedRows = computed(() => {
+  const list = [...rows.value]
+
+  return list.sort((a, b) => {
+    const aUpcoming = canBuy(a) ? 0 : 1
+    const bUpcoming = canBuy(b) ? 0 : 1
+    if (aUpcoming !== bUpcoming) {
+      return aUpcoming - bUpcoming
+    }
+    const ta = new Date(a.time).getTime()
+    const tb = new Date(b.time).getTime()
+    return ta - tb
+  })
+})
 
 const headers = [
-  { title: 'ID', key: 'id', width: 80 },
   { title: 'Movie', key: 'movie.title' },
   { title: 'Genre', key: 'movie.genre', width: 140 },
   { title: 'Hall', key: 'hall', width: 120 },
@@ -160,6 +179,16 @@ function toIsoLocal(dtStr){
   const d = new Date(dtStr)
   d.setMinutes(d.getMinutes() - d.getTimezoneOffset())
   return d.toISOString().slice(0,19)   // yyyy-MM-ddTHH:mm:ss (fără Z)
+}
+const canBuy = (s) => {
+  if (!s || !s.time) return false
+
+  const now = new Date()
+  const t = new Date(s.time)
+
+  const isFuture = t.getTime() > now.getTime()
+  const status = String(s.status || '').toUpperCase()
+  return isFuture && (status === 'SCHEDULED' || status === 'ONGOING')
 }
 
 async function search(){

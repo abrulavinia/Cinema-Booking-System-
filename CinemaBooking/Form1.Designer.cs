@@ -61,10 +61,11 @@
             // 
             // tabVanzariBilete
             // 
-            tabVanzariBilete.BackColor = Color.WhiteSmoke;
+            tabVanzariBilete.BackColor = Color.MistyRose;
             tabVanzariBilete.Controls.Add(buttonExport);
             tabVanzariBilete.Controls.Add(buttonSearch);
             tabVanzariBilete.Controls.Add(dataGridVanzari);
+            tabVanzariBilete.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 238);
             tabVanzariBilete.Location = new Point(4, 29);
             tabVanzariBilete.Name = "tabVanzariBilete";
             tabVanzariBilete.Padding = new Padding(3);
@@ -99,7 +100,7 @@
             // 
             // dataGridVanzari
             // 
-            dataGridVanzari.BackgroundColor = Color.AntiqueWhite;
+            dataGridVanzari.BackgroundColor = Color.SeaShell;
             dataGridVanzari.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridVanzari.Columns.AddRange(new DataGridViewColumn[] { Title, SoldTickets });
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -113,7 +114,7 @@
             dataGridVanzari.Location = new Point(103, 77);
             dataGridVanzari.Name = "dataGridVanzari";
             dataGridVanzari.RowHeadersWidth = 51;
-            dataGridVanzari.Size = new Size(407, 294);
+            dataGridVanzari.Size = new Size(459, 328);
             dataGridVanzari.TabIndex = 1;
             // 
             // Title
@@ -133,11 +134,11 @@
             SoldTickets.HeaderText = "SoldTickets";
             SoldTickets.MinimumWidth = 6;
             SoldTickets.Name = "SoldTickets";
-            SoldTickets.Width = 113;
+            SoldTickets.Width = 112;
             // 
             // tabTopVanzari
             // 
-            tabTopVanzari.BackColor = Color.WhiteSmoke;
+            tabTopVanzari.BackColor = Color.MistyRose;
             tabTopVanzari.Controls.Add(buttonRefresh);
             tabTopVanzari.Controls.Add(numericTop);
             tabTopVanzari.Controls.Add(groupTopScreening);
@@ -163,17 +164,18 @@
             // numericTop
             // 
             numericTop.BackColor = Color.OldLace;
-            numericTop.Location = new Point(194, 383);
+            numericTop.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            numericTop.Location = new Point(249, 376);
             numericTop.Name = "numericTop";
-            numericTop.Size = new Size(150, 27);
+            numericTop.Size = new Size(150, 34);
             numericTop.TabIndex = 1;
             // 
             // groupTopScreening
             // 
-            groupTopScreening.BackColor = Color.AntiqueWhite;
-            groupTopScreening.Location = new Point(79, 74);
+            groupTopScreening.BackColor = Color.SeaShell;
+            groupTopScreening.Location = new Point(177, 76);
             groupTopScreening.Name = "groupTopScreening";
-            groupTopScreening.Size = new Size(677, 222);
+            groupTopScreening.Size = new Size(578, 222);
             groupTopScreening.TabIndex = 0;
             groupTopScreening.TabStop = false;
             groupTopScreening.Text = "Top Screenings";

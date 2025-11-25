@@ -24,14 +24,30 @@ public interface ScreeningRepo extends JpaRepository<Screening, Long> {
 
 
     @Query("""
+    select s
+    from Screening s
+    where s.time >= CURRENT_TIMESTAMP
+      and s.status = com.cinemabooking.db.ScreeningStatus.SCHEDULED
+      and s.seats_total > 0
+    order by (1.0 * s.seats_sold / s.seats_total) desc, s.time asc
+    """)
+    List<Screening> getMostPopularScreening(Pageable pageable);
+
+    @Query("""
        select s
        from Screening s
        left join Ticket t
          on t.screening = s
         and (t.status is null or t.status <> com.cinemabooking.db.TicketStatus.CANCELLED)
-       where s.time >= CURRENT_TIMESTAMP
+       where s.time >= :start
+         and s.time < :end
+         and s.status in (
+              com.cinemabooking.db.ScreeningStatus.SCHEDULED,
+              com.cinemabooking.db.ScreeningStatus.ONGOING
+         )
        group by s
-       order by count(t.id) desc, s.time asc
-       """)
-    List<Screening> getMostPopularScreening(Pageable pageable);
+       order by count(t) desc
+    """)
+    List<Screening> findToday(@Param("start") LocalDateTime start,
+                              @Param("end") LocalDateTime end);
 }

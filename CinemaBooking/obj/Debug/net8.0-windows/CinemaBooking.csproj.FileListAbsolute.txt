@@ -26,3 +26,4 @@ C:\Users\abrud\OneDrive\Desktop\Anul 4\SCD\Cinema-Booking-System-\CinemaBooking\
 C:\Users\abrud\OneDrive\Desktop\Anul 4\SCD\Cinema-Booking-System-\CinemaBooking\bin\Debug\net8.0-windows\System.IO.Packaging.dll
 C:\Users\abrud\OneDrive\Desktop\Anul 4\SCD\Cinema-Booking-System-\CinemaBooking\obj\Debug\net8.0-windows\CinemaBooking.csproj.AssemblyReference.cache
 C:\Users\abrud\OneDrive\Desktop\Anul 4\SCD\Cinema-Booking-System-\CinemaBooking\obj\Debug\net8.0-windows\CinemaBo.ED1E6A8E.Up2Date
+C:\Users\abrud\OneDrive\Desktop\Anul 4\SCD\Cinema-Booking-System-\CinemaBooking\obj\Debug\net8.0-windows\CinemaBooking.Login.resources

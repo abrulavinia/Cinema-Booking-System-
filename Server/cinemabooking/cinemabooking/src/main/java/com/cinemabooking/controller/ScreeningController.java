@@ -26,17 +26,17 @@ public class ScreeningController {
         return service.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public com.cinemabooking.db.Screening one(@PathVariable Long id) {
         return service.findById(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/id/{id}")
     public com.cinemabooking.db.Screening update(@PathVariable Long id, @RequestBody com.cinemabooking.db.Screening s) {
         return service.update(id, s);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/id/{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }
@@ -49,6 +49,10 @@ public class ScreeningController {
             @RequestParam(required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime to) {
         return service.search(movieId, from, to);
+    }
+    @GetMapping("/today")
+    public List<Screening> screeningToday() {
+        return service.getToday();
     }
     @GetMapping("/popular")
     public List<Screening> popular(@RequestParam(defaultValue = "5") int top) {

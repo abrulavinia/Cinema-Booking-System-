@@ -63,6 +63,16 @@ namespace CinemaBooking.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Cinema_login {
+            get {
+                object obj = ResourceManager.GetObject("Cinema-login", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Cinema_Photo {
             get {
                 object obj = ResourceManager.GetObject("Cinema Photo", resourceCulture);

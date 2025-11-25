@@ -11,53 +11,47 @@ namespace CinemaBooking
 {
     public partial class FormManagerCinema : Form
     {
-        private readonly PackageServices _svc;
-        private BindingList<TicketSoldPerMovie> _salesBinding = new();
-        private bool _salesColumnsConfigured = false;
+        private readonly PackageServices svc;
+        private BindingList<TicketSoldPerMovie> salesBinding = new();
+        private bool salesColumnsConfigured = false;
 
-        // ListView pentru tab-ul “Top”
-        private readonly ListView _lvTop = new();
-
+        private readonly ListView lvTop = new();
         public FormManagerCinema()
         {
             InitializeComponent();
 
-            _svc = new PackageServices();
-            _svc.createConnection();
+            svc = new PackageServices();
+            svc.createConnection();
 
-            // GRID Sales
             dataGridVanzari.AutoGenerateColumns = false;
             dataGridVanzari.RowHeadersVisible = false;
             dataGridVanzari.AllowUserToAddRows = false;
             dataGridVanzari.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridVanzari.MultiSelect = false;
-            dataGridVanzari.DataSource = _salesBinding;
+            dataGridVanzari.DataSource = salesBinding;
 
-            // Numeric top
             numericTop.Minimum = 1;
             numericTop.Maximum = 100;
             numericTop.Value = 5;
 
-            // ListView Top
-            _lvTop.Dock = DockStyle.Fill;
-            _lvTop.View = View.Details;
-            _lvTop.FullRowSelect = true;
-            _lvTop.GridLines = true;
-            _lvTop.Columns.Add("Movie", 220);
-            _lvTop.Columns.Add("Hall", 90);
-            _lvTop.Columns.Add("Time", 150);
-            _lvTop.Columns.Add("Sold / Total", 110, HorizontalAlignment.Right);
+            lvTop.Dock = DockStyle.Fill;
+            lvTop.View = View.Details;
+            lvTop.FullRowSelect = true;
+            lvTop.GridLines = true;
+            lvTop.Columns.Add("Movie", 220);
+            lvTop.Columns.Add("Hall", 90);
+            lvTop.Columns.Add("Time", 150);
+            lvTop.Columns.Add("Sold/Total", 110, HorizontalAlignment.Right);
+
             groupTopScreening.Controls.Clear();
-            groupTopScreening.Controls.Add(_lvTop);
+            groupTopScreening.Controls.Add(lvTop);
 
             buttonRefresh.Click += buttonRefresh_Click;
         }
 
         private void EnsureSalesColumns()
         {
-            if (_salesColumnsConfigured) return;
-
-            // Folosim coloanele EXISTENTE din designer:
+            if (salesColumnsConfigured) return;
             var colTitle = dataGridVanzari.Columns["Title"];
             var colSold = dataGridVanzari.Columns["SoldTickets"];
 
@@ -76,7 +70,7 @@ namespace CinemaBooking
                 colSold.DefaultCellStyle.Format = "N0";
             }
 
-            _salesColumnsConfigured = true;
+            salesColumnsConfigured = true;
         }
 
         private async void buttonSearch_Click(object sender, EventArgs e)
@@ -87,21 +81,20 @@ namespace CinemaBooking
             try
             {
                 EnsureSalesColumns();
-
-                var list = await Task.Run(() => _svc.GetTicketsSoldPerMovie())
+                var list = await Task.Run(() => svc.GetTicketsSoldPerMovie())
                            ?? new List<TicketSoldPerMovie>();
 
-                _salesBinding = new BindingList<TicketSoldPerMovie>(
+                salesBinding = new BindingList<TicketSoldPerMovie>(
                     list.OrderByDescending(x => x.SoldTickets).ToList()
                 );
-                dataGridVanzari.DataSource = _salesBinding;
+                dataGridVanzari.DataSource = salesBinding;
 
                 var totalTickets = list.Sum(x => x.SoldTickets);
-                this.Text = $"Manager Cinema – {list.Count} filme, {totalTickets:N0} bilete vândute";
+                this.Text = $"Manager Cinema – {list.Count} filme, {totalTickets:N0} bilete vandute";
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, $"Nu s-au putut încãrca vânzãrile.\n{ex.Message}",
+                MessageBox.Show(this, $"Nu s-au putut incarca vanzarile.\n{ex.Message}",
                     "Eroare", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -119,27 +112,23 @@ namespace CinemaBooking
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-
-            // Indici siguri ai coloanelor dupã Name (cele din designer)
             int idxTitle = dataGridVanzari.Columns["Title"].Index;
             int idxSold = dataGridVanzari.Columns["SoldTickets"].Index;
 
             using var sfd = new SaveFileDialog
             {
                 Filter = "Excel (*.xlsx)|*.xlsx",
-                FileName = $"Vanzari bilete per film - {DateTime.Now:yyyyMMdd_HHmm}.xlsx"
+                FileName = $"Vanzari bilete per film - {DateTime.Now:yyyy.MM.dd}.xlsx"
             };
             if (sfd.ShowDialog(this) != DialogResult.OK) return;
 
             using var wb = new XLWorkbook();
             var ws = wb.Worksheets.Add("Sales");
 
-            // Header
             ws.Cell(1, 1).Value = "Title";
             ws.Cell(1, 2).Value = "SoldTickets";
             ws.Range(1, 1, 1, 2).Style.Font.Bold = true;
 
-            // Rows
             int r = 2;
             foreach (DataGridViewRow row in dataGridVanzari.Rows)
             {
@@ -152,7 +141,7 @@ namespace CinemaBooking
             ws.Columns().AdjustToContents();
             wb.SaveAs(sfd.FileName);
 
-            MessageBox.Show(this, "Export reu?it.", "OK",
+            MessageBox.Show(this, "Export reusit.", "OK",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -166,11 +155,11 @@ namespace CinemaBooking
 
             try
             {
-                var list = await Task.Run(() => _svc.GetMostPopularScreenings(top))
+                var list = await Task.Run(() => svc.GetMostPopularScreenings(top))
                            ?? new List<Screening>();
 
-                _lvTop.BeginUpdate();
-                _lvTop.Items.Clear();
+                lvTop.BeginUpdate();
+                lvTop.Items.Clear();
 
                 foreach (var s in list)
                 {
@@ -183,15 +172,15 @@ namespace CinemaBooking
                     lvi.SubItems.Add(hall);
                     lvi.SubItems.Add(time);
                     lvi.SubItems.Add(soldTotal);
-                    _lvTop.Items.Add(lvi);
+                    lvTop.Items.Add(lvi);
                 }
 
-                _lvTop.EndUpdate();
+                lvTop.EndUpdate();
                 this.Text = $"Manager Cinema – Top {top} screenings";
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, "Nu s-a putut încãrca top-ul.\n" + ex.Message,
+                MessageBox.Show(this, "Nu s-a putut incarca top-ul.\n" + ex.Message,
                     "Eroare", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally

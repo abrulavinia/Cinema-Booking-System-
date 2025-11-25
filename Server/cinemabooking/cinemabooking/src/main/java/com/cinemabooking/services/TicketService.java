@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -20,7 +21,12 @@ public class TicketService {
     public List<com.cinemabooking.db.Ticket> all() {
         return tickets.findAll();
     }
-
+    public com.cinemabooking.db.Ticket create(com.cinemabooking.db.Ticket t) {
+        if (t.getStatus() == null) {
+            t.setStatus(TicketStatus.RESERVED);
+        }
+        return tickets.save(t);
+    }
     @Transactional
     public com.cinemabooking.db.Ticket buy(Long screeningId, String email) {
         if (email == null || (email = email.trim()).isEmpty()) {
@@ -29,6 +35,11 @@ public class TicketService {
 
         var s = screenings.findById(screeningId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Screening not found"));
+
+
+        if (s.getTime().isBefore(LocalDateTime.now())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Screening already finished");
+        }
 
         if (s.getSeats_sold() >= s.getSeats_total())
             throw new ResponseStatusException(HttpStatus.CONFLICT, "No more seats available");

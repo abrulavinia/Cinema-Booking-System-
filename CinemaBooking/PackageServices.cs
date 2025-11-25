@@ -11,12 +11,68 @@ namespace CinemaBooking
     internal class PackageServices
     {
         static HttpClient client = new HttpClient();
+        private static bool configured = false;
         public void createConnection()
         {
+            if (configured) return;
             client.BaseAddress = new Uri("http://localhost:8080/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            configured = true;
+        }
+        public async Task<bool> LoginManagerAsync(string username, string password)
+        {
+            var payload = new
+            {
+                username = username,
+                password = password
+            };
+
+            string json = JsonSerializer.Serialize(payload);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var resp = await client.PostAsync("api/manager/login", content);
+            return resp.IsSuccessStatusCode;
+        }
+        public List<Screening> GetMostPopularScreenings(int top = 5)
+        {
+            HttpResponseMessage response = client.GetAsync($"api/screenings/popular?top={top}").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string json = response.Content.ReadAsStringAsync().Result;
+                return JsonSerializer.Deserialize<List<Screening>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            }
+            return null;
+        }
+
+        public List<TicketSoldPerMovie> GetTicketsSoldPerMovie()
+        {
+            HttpResponseMessage response = client.GetAsync("api/tickets/sold-per-movie").Result;
+            if (!response.IsSuccessStatusCode) return null;
+
+            string json = response.Content.ReadAsStringAsync().Result;
+
+
+            try
+            {
+                var direct = JsonSerializer.Deserialize<List<TicketSoldPerMovie>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                if (direct != null) return direct;
+            }
+            catch { }
+
+
+            var list = new List<TicketSoldPerMovie>();
+            using (var doc = JsonDocument.Parse(json))
+            {
+                foreach (var el in doc.RootElement.EnumerateArray())
+                {
+                    string title = el[0].GetString();
+                    long sold = el[1].GetInt64();
+                    list.Add(new TicketSoldPerMovie { Title = title, SoldTickets = sold });
+                }
+            }
+            return list;
         }
         public List<Movie> GetMovies()
         {
@@ -85,7 +141,6 @@ namespace CinemaBooking
             return null;
         }
 
-        // ===================== SCREENINGS =====================
 
         public List<Screening> GetScreenings()
         {
@@ -143,7 +198,6 @@ namespace CinemaBooking
             return response.IsSuccessStatusCode;
         }
 
-        // search cu parametri opționali (movieId/from/to)
         public List<Screening> SearchScreenings(long? movieId, DateTime? from, DateTime? to)
         {
             var qs = new StringBuilder("api/screenings/search");
@@ -173,18 +227,6 @@ namespace CinemaBooking
             return null;
         }
 
-        public List<Screening> GetMostPopularScreenings(int top = 5)
-        {
-            HttpResponseMessage response = client.GetAsync($"api/screenings/popular?top={top}").Result;
-            if (response.IsSuccessStatusCode)
-            {
-                string json = response.Content.ReadAsStringAsync().Result;
-                return JsonSerializer.Deserialize<List<Screening>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            }
-            return null;
-        }
-
-        // ===================== TICKETS =====================
 
         public List<Ticket> GetTickets()
         {
@@ -213,38 +255,6 @@ namespace CinemaBooking
             HttpResponseMessage response = client.DeleteAsync($"api/tickets/{ticketId}").Result;
             return response.IsSuccessStatusCode;
         }
-
-        // /api/tickets/sold-per-movie – poate întoarce fie [{title, soldTickets}], fie [["Title",123],...]
-        public List<TicketSoldPerMovie> GetTicketsSoldPerMovie()
-        {
-            HttpResponseMessage response = client.GetAsync("api/tickets/sold-per-movie").Result;
-            if (!response.IsSuccessStatusCode) return null;
-
-            string json = response.Content.ReadAsStringAsync().Result;
-
-            // încercăm direct mapping pe obiect
-            try
-            {
-                var direct = JsonSerializer.Deserialize<List<TicketSoldPerMovie>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                if (direct != null) return direct;
-            }
-            catch { /* fallback jos */ }
-
-            // fallback pentru List<object[]>
-            var list = new List<TicketSoldPerMovie>();
-            using (var doc = JsonDocument.Parse(json))
-            {
-                foreach (var el in doc.RootElement.EnumerateArray())
-                {
-                    string title = el[0].GetString();
-                    long sold = el[1].GetInt64();
-                    list.Add(new TicketSoldPerMovie { Title = title, SoldTickets = sold });
-                }
-            }
-            return list;
-        }
-
-        // ===================== RECOMMENDATIONS =====================
 
         public List<Screening> GetRecommendations(string email)
         {
